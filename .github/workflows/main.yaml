@@ -3,11 +3,9 @@ on:
   push:
     branches: 
       - main
-
 env:
   REGISTRY: quay.io
   REGISTRY_ORG: appvia
-
 jobs:
   image:
     runs-on: ubuntu-latest
