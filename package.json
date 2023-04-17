@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "antd": "^3.26.17",
-    "next": "9.4.1",
+    "next": "13.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "@azure/storage-blob": "^12.12.0"
