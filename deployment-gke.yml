@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-storage-account-app
+  labels:
+    app: demo-storage-account-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-storage-account-app
+  template:
+    metadata:
+      labels:
+        app: demo-storage-account-app
+    spec:
+      containers:
+      - name: demo-storage-account-app
+        image: quay.io/appvia/demo-storage-account-app:v0.0.4
+        ports:
+          - containerPort: 3002
+        env:
+          - name: AZURE_STORAGE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: gke-storage-account
+                key: AZURE_STORAGE_KEY
+
+          - name: AZURE_STORAGE_ACCOUNT_NAME
+            valueFrom:
+              secretKeyRef:
+                name: gke-storage-account
+                key: AZURE_STORAGE_ACCOUNT_NAME
+                
+          - name: AZURE_CONTAINER_NAME
+            valueFrom:
+              secretKeyRef:
+                name: gke-storage-account
+                key: AZURE_CONTAINER_NAME

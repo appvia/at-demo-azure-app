@@ -1,0 +1,33 @@
+apiVersion: app.appvia.io/v2beta1
+kind: Application
+metadata:
+  name: azure_demo_app
+spec:
+  cloud: azure
+  components:
+  - cloudResource:
+      plan: getindata-azurerm-storage-account
+    type: CloudResource
+  - container:
+      env:
+      - fromCloudResourceOutput:
+          componentName: store
+          output: storage_primary_access_key
+        name: AZURE_STORAGE_KEY
+      - fromCloudResourceOutput:
+          componentName: store
+          output: storage_account_name
+        name: AZURE_STORAGE_ACCOUNT_NAME
+      - fromCloudResourceOutput:
+          componentName: store
+          output: containers
+        name: AZURE_CONTAINER_NAME
+      expose: true
+      image: quay.io/appvia/demo-storage-account-app:latest
+      port: 3002
+      tls: true
+    dependsOn:
+    - store
+    name: test
+    type: Container
+  name: demo_app
