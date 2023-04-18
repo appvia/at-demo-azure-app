@@ -2,462 +2,307 @@ apiVersion: cloudresources.appvia.io/v2beta1
 kind: CloudResourcePlan
 metadata:
   annotations:
-    appvia.io/lastUpdated: "2023-04-16T07:27:21Z"
+    appvia.io/lastUpdated: "2023-04-18T17:36:34Z"
     appvia.io/lastUpdatedBy: amir.tayabali@appvia.io
-    appvia.io/source: getindata-azurerm-storage-account
-  creationTimestamp: "2023-04-16T05:54:53Z"
-  generation: 3
-  name: getindata-azurerm-storage-account
-  resourceVersion: "35944321"
-  uid: cd566059-52f2-4141-b51b-1b3fe38deece
+    appvia.io/source: appvia-azurerm-demo-storage-account
+  creationTimestamp: "2023-04-18T16:19:38Z"
+  generation: 6
+  name: appvia-azurerm-demo-storage-account
+  resourceVersion: "38641342"
+  uid: 01c5b22e-f194-4fad-873c-f5e98bf21389
 spec:
   allocation:
     type: all
   cloud: azure
-  description: Terraform Module for Azure Storage Account
+  description: Imported from https://github.com/appvia/terraform-azurerm-demo-storage-account
   enableTemplateAutoUpgrade: false
   enableWatch: false
   inputDefinitions:
   - default: null
-    description: |
-      Describe additional descriptors to be output in the `descriptors` output map.
-      Map of maps. Keys are names of descriptors. Values are maps of the form
-      `{
-         format = string
-         labels = list(string)
-      }`
-      (Type is `any` so the map values can later be enhanced to provide additional options.)
-      `format` is a Terraform format string to be passed to the `format()` function.
-      `labels` is a list of labels, in order, to pass to `format()` function.
-      Label values will be normalized before being passed to `format()` so they will be
-      identical to how they appear in `id`.
-      Default is `{}` (`descriptors` output will be empty).
-    name: descriptor_formats
-    type: any
+    description: Allow or disallow public access to all blobs or containers in the
+      storage account.
+    name: allow_nested_items_to_be_public
+    type: bool
   - default: null
-    description: A container that holds related resources for an Azure solution
+    description: Map of CIDRs Storage Account access.
+    name: access_list
+    type: map(string)
+  - default: null
+    description: Indicates whether the storage account permits requests to be authorized
+      with the account access key via Shared Key
+    name: shared_access_key_enabled
+    type: bool
+  - default: null
+    description: Enable Hierarchical Namespace (can be used with Azure Data Lake Storage
+      Gen 2).
+    name: enable_hns
+    type: bool
+  - default: null
+    description: Retention days for deleted container. Valid value is between 1 and
+      365 (set to 0 to disable).
+    name: container_delete_retention_days
+    type: number
+  - default: null
+    description: tags to be applied to resources
+    name: tags
+    required: true
+    type: map(string)
+  - default: null
+    description: Defines the Tier to use for this storage account (Standard or Premium).
+    name: account_tier
+    type: string
+  - default: null
+    description: Defines the access tier for BlobStorage, FileStorage and StorageV2
+      accounts
+    name: access_tier
+    type: string
+  - default: null
+    description: Specifies whether traffic is bypassed for Logging/Metrics/AzureServices.
+      Valid options are any combination of Logging, Metrics, AzureServices, or None.
+    name: traffic_bypass
+    type: list(string)
+  - default: null
+    description: Controls if static website to be enabled on the storage account.
+      Possible values are `true` or `false`
+    name: enable_static_website
+    type: bool
+  - default: null
+    description: Controls whether blob object versioning is enabled.
+    name: blob_versioning_enabled
+    type: bool
+  - default: null
+    description: container access type
+    name: container_access_type
+    type: string
+  - default: null
+    description: Specifies the supported Azure location to MySQL server resource
+    name: location
+    required: true
+    type: string
+  - default: null
+    description: Storage account replication type - i.e. LRS, GRS, RAGRS, ZRS, GZRS,
+      RAGZRS.
+    name: replication_type
+    required: true
+    type: string
+  - default: null
+    description: Creates a virtual network rule in the subnet_id (values are virtual
+      network subnet ids).
+    name: service_endpoints
+    type: map(string)
+  - default: null
+    description: Retention days for deleted blob. Valid value is between 1 and 365
+      (set to 0 to disable).
+    name: blob_delete_retention_days
+    type: number
+  - default: null
+    description: Storage account name
+    name: name
+    type: string
+  - default: null
+    description: name of the resource group to create the resource
     name: resource_group_name
     required: true
     type: string
   - default: null
-    description: The SKUs supported by Microsoft Azure Storage. Valid options are
-      Premium_LRS, Premium_ZRS, Standard_GRS, Standard_GZRS, Standard_LRS, Standard_RAGRS,
-      Standard_RAGZRS, Standard_ZRS
-    name: skuname
-    type: string
-  - default: null
-    description: Specifies the number of days that the blob should be retained, between
-      `1` and `365` days. Defaults to `7`
-    name: container_soft_delete_retention_days
-    type: number
-  - default: null
-    description: List of containers to create and their access levels
-    name: containers_list
-    type: list(object({ name = string, access_type = string }))
-  - default: null
-    description: List of storages queues
-    name: queues
-    type: list(string)
-  - default: null
-    description: List of principal IDs that will have data contributor role
-    name: storage_blob_data_contributors
-    type: list(string)
-  - default: null
-    description: List of principal IDs that will have data reader role
-    name: storage_blob_data_readers
-    type: list(string)
-  - default: null
-    description: |
-      Additional key-value pairs to add to each map in `tags_as_list_of_maps`. Not added to `tags` or `id`.
-      This is for some rare cases where resources want additional configuration of tags
-      and therefore take a list of maps with tag key, value, and additional configuration.
-    name: additional_tag_map
-    type: map(string)
-  - default: null
-    description: Resource ID of the log analytics workspace. Used for diagnostics
-      logs and metrics. If not provided, diagnostics will not be enabled
-    name: diagnostics_log_analytics_workspace_id
-    type: string
-  - default: null
-    description: Should Private Endpoint for this storage account be enabled
-    name: private_endpoint_enabled
+    description: Enable Large File Share.
+    name: enable_large_file_share
     type: bool
   - default: null
-    description: Descriptor name
-    name: descriptor_name
+    description: path from your repo root to index.html
+    name: index_path
     type: string
   - default: null
-    description: Set to false to prevent the module from creating any resources
-    name: enabled
+    description: Enable SFTP for storage account (enable_hns must be set to true for
+      this to work).
+    name: enable_sftp
     type: bool
   - default: null
-    description: ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role
-      'prod', 'staging', 'dev', 'UAT'
-    name: environment
+    description: The minimum supported TLS version for the storage account.
+    name: min_tls_version
     type: string
   - default: null
-    description: ID element. Usually used to indicate role, e.g. 'prod', 'staging',
-      'source', 'build', 'test', 'deploy', 'release'
-    name: stage
+    description: path from your repo root to your custom 404 page
+    name: custom_404_path
     type: string
   - default: null
-    description: Enable SFTP for the storage account
-    name: sftp_enabled
-    type: bool
-  - default: null
-    description: Is the blob service properties for change feed events enabled?
-    name: change_feed_enabled
-    type: bool
-  - default: null
-    description: Boolean flag which controls if advanced threat protection is enabled
-    name: enable_advanced_threat_protection
-    type: bool
-  - default: null
-    description: The type of Managed Identity which should be assigned to the Linux
-      Virtual Machine. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned,
-      UserAssigned`
-    name: managed_identity_type
-    type: string
-  - default: null
-    description: |
-      Single object for setting entire context at once.
-      See description of individual variables for details.
-      Leave string and numeric variables as `null` to use default value.
-      Individual variable settings (non-null) override settings in context object,
-      except for attributes, tags, and additional_tag_map, which are merged.
-    name: context
-    type: any
-  - default: null
-    description: ID element. Usually an abbreviation of your organization name, e.g.
-      'eg' or 'cp', to help ensure generated IDs are globally unique
-    name: namespace
-    type: string
-  - default: null
-    description: |
-      ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.
-      This is the only ID element not also included as a `tag`.
-      The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input.
-    name: name
-    type: string
-  - default: null
-    description: Azure datacenter location, where resources will be deployed
-    name: location
-    type: string
-  - default: null
-    description: Whether to create resource group and use it for storage resources
-    name: create_resource_group
-    type: bool
-  - default: null
-    description: List of storage tables
-    name: tables
-    type: list(string)
-  - default: null
-    description: Private DNS Zone Ids associated with the Private Endpoint. They need
-      to match the subresource name
-    name: private_endpoint_private_dns_zone_ids
-    type: list(string)
-  - default: null
-    description: |
-      Terraform regular expression (regex) string.
-      Characters matching the regex will be removed from the ID elements.
-      If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.
-    name: regex_replace_chars
-    type: string
-  - default: null
-    description: Is versioning enabled? Default to `false`
-    name: enable_versioning
-    type: bool
-  - default: null
-    description: Configure Azure Storage lifecycles
-    name: lifecycles
-    type: list(object({ prefix_match = set(string), tier_to_cool_after_days = number,
-      tier_to_archive_after_days = number, delete_after_days = number, snapshot_delete_after_days
-      = number }))
-  - default: null
-    description: Subnet ID associated with the Private Endpoint
-    name: private_endpoint_subnet_id
-    type: string
-  - default: null
-    description: |
-      Set of labels (ID elements) to include as tags in the `tags` output.
-      Default is to include all labels.
-      Tags with empty values will not be included in the `tags` output.
-      Set to `[]` to suppress all generated tags.
-      **Notes:**
-        The value of the `name` tag, if included, will be the `id`, not the `name`.
-        Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be
-        changed in later chained modules. Attempts to change it will be silently ignored.
-    name: labels_as_tags
-    type: set(string)
-  - default: null
-    description: |
-      Additional tags (e.g. `{'BusinessUnit': 'XYZ'}`).
-      Neither the tag keys nor the tag values will be modified by this module.
-    name: tags
-    type: map(string)
-  - default: null
-    description: |
-      The order in which the labels (ID elements) appear in the `id`.
-      Defaults to ["namespace", "environment", "stage", "name", "attributes"].
-      You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present.
-    name: label_order
-    type: list(string)
-  - default: null
-    description: |
-      Controls the letter case of the `tags` keys (label names) for tags generated by this module.
-      Does not affect keys of tags passed in via the `tags` input.
-      Possible values: `lower`, `title`, `upper`.
-      Default value: `title`.
-    name: label_key_case
-    type: string
-  - default: null
-    description: Specifies the number of days that the blob should be retained, between
-      `1` and `365` days. Defaults to `7`
-    name: blob_soft_delete_retention_days
-    type: number
-  - default: null
-    description: A list of User Managed Identity ID's which should be assigned to
-      the Linux Virtual Machine
-    name: managed_identity_ids
-    type: list(string)
-  - default: null
-    description: Subresource name for the Private Endpoint
-    name: private_endpoint_subresource_name
-    type: string
-  - default: null
-    description: A map of CORS rules to add to the storage account
-    name: cors_rule
-    type: |-
-      object({
-          allowed_origins    = optional(list(string))
-          allowed_methods    = optional(list(string))
-          allowed_headers    = optional(list(string))
-          exposed_headers    = optional(list(string))
-          max_age_in_seconds = optional(number)
-        })
-  - default: null
-    description: |
-      Limit `id` to this many characters (minimum 6).
-      Set to `0` for unlimited length.
-      Set to `null` for keep the existing setting, which defaults to `0`.
-      Does not affect `id_full`.
-    name: id_length_limit
-    type: number
-  - default: null
-    description: Is Hierarchical Namespace enabled? This can be used with Azure Data
-      Lake Storage Gen 2
-    name: is_hns_enabled
-    type: bool
-  - default: null
-    description: Network rules restricing access to the storage account
-    name: network_rules
-    type: object({ bypass = list(string), ip_rules = list(string), subnet_ids = list(string)
-      })
-  - default: null
-    description: List of containers to create and their access levels
-    name: file_shares
-    type: list(object({ name = string, quota = number }))
-  - default: null
-    description: Don't add module naming convention
-    name: use_raw_name
-    type: bool
-  - default: null
-    description: ID element _(Rarely used, not included by default)_. A customer identifier,
-      indicating who this instance of a resource is for
-    name: tenant
-    type: string
-  - default: null
-    description: |
-      Delimiter to be used between ID elements.
-      Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.
-    name: delimiter
-    type: string
-  - default: null
-    description: |
-      ID element. Additional attributes (e.g. `workers` or `cluster`) to add to `id`,
-      in the order they appear in the list. New attributes are appended to the
-      end of the list. The elements of the list are joined by the `delimiter`
-      and treated as a single ID element.
-    name: attributes
-    type: list(string)
-  - default: null
-    description: |
-      Controls the letter case of ID elements (labels) as included in `id`,
-      set as tag values, and output by this module individually.
-      Does not affect values of tags passed in via the `tags` input.
-      Possible values: `lower`, `title`, `upper` and `none` (no transformation).
-      Set this to `title` and set `delimiter` to `""` to yield Pascal Case IDs.
-      Default value: `lower`.
-    name: label_value_case
-    type: string
-  - default: null
-    description: The type of storage account. Valid options are BlobStorage, BlockBlobStorage,
+    description: Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage,
       FileStorage, Storage and StorageV2
     name: account_kind
     type: string
   - default: null
-    description: Defines the access tier for BlobStorage and StorageV2 accounts. Valid
-      options are Hot and Cool
-    name: access_tier
+    description: Forces HTTPS if enabled.
+    name: enable_https_traffic_only
+    type: bool
+  - default: null
+    description: Specifies the default action of allow or deny when no other network
+      rules match
+    name: default_network_rule
     type: string
   - default: null
-    description: The minimum supported TLS version for the storage account
-    name: min_tls_version
+    description: Storage account name
+    name: container_name
+    required: true
     type: string
   - default: null
-    description: Is the last access time based tracking enabled? Default to `false`
-    name: last_access_time_enabled
+    description: 'blob service cors rules:  https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule'
+    name: blob_cors
+    type: |-
+      map(object({
+          allowed_headers    = list(string)
+          allowed_methods    = list(string)
+          allowed_origins    = list(string)
+          exposed_headers    = list(string)
+          max_age_in_seconds = number
+        }))
+  - default: null
+    description: Is infrastructure encryption enabled? Changing this forces a new
+      resource to be created.
+    name: infrastructure_encryption_enabled
+    type: bool
+  - default: null
+    description: Is NFSv3 protocol enabled? Changing this forces a new resource to
+      be created
+    name: nfsv3_enabled
     type: bool
   outputs:
-  - description: The location of the resource group in which resources are created
-    name: resource_group_location
-  - description: Map of Storage SMB file shares
-    name: file_shares
-  - description: The primary access key for the storage account
-    name: storage_primary_access_key
+  - description: Hostname with port for web storage in the secondary location.
+    name: secondary_web_host
+  - description: The Tenant ID for the Service Principal associated with the Identity
+      of this Storage Account.
+    name: tenant_id
+  - description: The endpoint URL for table storage in the secondary location.
+    name: secondary_table_endpoint
+  - description: The secondary access key for the storage account.
+    name: secondary_access_key
     sensitive: true
-  - description: Map of Storage SMB file shares
-    name: tables
-  - description: Map of Storage SMB file shares
-    name: queues
-  - description: The name of the resource group in which resources are created
-    name: resource_group_name
-  - description: The id of the resource group in which resources are created
-    name: resource_group_id
-  - description: The endpoint URL for web storage in the primary location
-    name: storage_account_primary_web_endpoint
-  - description: The hostname with port if applicable for web storage in the primary
-      location
-    name: storage_account_primary_web_host
-  - description: The primary connection string for the storage account
-    name: storage_primary_connection_string
+  - description: The endpoint host for blob storage in the secondary location.
+    name: secondary_blob_host
+  - description: The endpoint URL for table storage in the primary location.
+    name: primary_table_endpoint
+  - description: The name of the Storage Account container.
+    name: container_name
+  - description: The endpoint URL for web storage in the secondary location.
+    name: secondary_web_endpoint
+  - description: The connection string associated with the primary blob location.
+    name: primary_blob_connection_string
     sensitive: true
-  - description: The name of the storage account
-    name: storage_account_name
-  - description: The endpoint URL for blob storage in the primary location
-    name: storage_account_primary_blob_endpoint
-  - description: The primary access key for the storage account
-    name: storage_secondary_access_key
+  - description: The endpoint URL for file storage in the secondary location.
+    name: secondary_file_endpoint
+  - description: The connection string associated with the secondary location.
+    name: secondary_connection_string
     sensitive: true
-  - description: The ID of the storage account
-    name: storage_account_id
-  - description: The primary location of the storage account
-    name: storage_account_primary_location
-  - description: Map of containers
-    name: containers
+  - description: The ID of the Storage Account.
+    name: id
+  - description: The endpoint URL for blob storage in the primary location.
+    name: primary_blob_endpoint
+  - description: The endpoint host for blob storage in the primary location.
+    name: primary_blob_host
+  - description: The primary access key for the storage account.
+    name: primary_access_key
+    sensitive: true
+  - description: The endpoint URL for queue storage in the secondary location.
+    name: secondary_queue_endpoint
+  - description: The connection string associated with the primary location.
+    name: primary_connection_string
+    sensitive: true
+  - description: Hostname with port for web storage in the primary location.
+    name: primary_web_host
+  - description: The connection string associated with the secondary blob location.
+    name: secondary_blob_connection_string
+    sensitive: true
+  - description: The name of the Storage Account.
+    name: name
+  - description: The endpoint URL for queue storage in the primary location.
+    name: primary_queue_endpoint
+  - description: The endpoint URL for DFS storage in the primary location.
+    name: primary_dfs_endpoint
+  - description: The endpoint URL for DFS storage in the secondary location.
+    name: secondary_dfs_endpoint
+  - description: The endpoint URL for web storage in the primary location.
+    name: primary_web_endpoint
+  - description: The Principal ID for the Service Principal associated with the Identity
+      of this Storage Account.
+    name: principal_id
+  - description: The Storage Account object.
+    name: sa
+    sensitive: true
+  - description: The endpoint URL for blob storage in the secondary location.
+    name: secondary_blob_endpoint
+  - description: The endpoint URL for file storage in the primary location.
+    name: primary_file_endpoint
   policies:
   - editable: false
-    path: descriptor_formats
+    path: allow_nested_items_to_be_public
   - editable: false
-    path: resource_group_name
+    path: access_list
   - editable: false
-    path: skuname
+    path: shared_access_key_enabled
   - editable: false
-    path: container_soft_delete_retention_days
+    path: enable_hns
   - editable: false
-    path: containers_list
-  - editable: false
-    path: queues
-  - editable: false
-    path: storage_blob_data_contributors
-  - editable: false
-    path: storage_blob_data_readers
-  - editable: false
-    path: additional_tag_map
-  - editable: false
-    path: diagnostics_log_analytics_workspace_id
-  - editable: false
-    path: private_endpoint_enabled
-  - editable: false
-    path: descriptor_name
-  - editable: false
-    path: enabled
-  - editable: false
-    path: environment
-  - editable: false
-    path: stage
-  - editable: false
-    path: sftp_enabled
-  - editable: false
-    path: change_feed_enabled
-  - editable: false
-    path: enable_advanced_threat_protection
-  - editable: false
-    path: managed_identity_type
-  - editable: false
-    path: context
-  - editable: false
-    path: namespace
-  - editable: false
-    path: name
-  - editable: false
-    path: location
-  - editable: false
-    path: create_resource_group
-  - editable: false
-    path: tables
-  - editable: false
-    path: private_endpoint_private_dns_zone_ids
-  - editable: false
-    path: regex_replace_chars
-  - editable: false
-    path: enable_versioning
-  - editable: false
-    path: lifecycles
-  - editable: false
-    path: private_endpoint_subnet_id
-  - editable: false
-    path: labels_as_tags
+    path: container_delete_retention_days
   - editable: false
     path: tags
   - editable: false
-    path: label_order
-  - editable: false
-    path: label_key_case
-  - editable: false
-    path: blob_soft_delete_retention_days
-  - editable: false
-    path: managed_identity_ids
-  - editable: false
-    path: private_endpoint_subresource_name
-  - editable: false
-    path: cors_rule
-  - editable: false
-    path: id_length_limit
-  - editable: false
-    path: is_hns_enabled
-  - editable: false
-    path: network_rules
-  - editable: false
-    path: file_shares
-  - editable: false
-    path: use_raw_name
-  - editable: false
-    path: tenant
-  - editable: false
-    path: delimiter
-  - editable: false
-    path: attributes
-  - editable: false
-    path: label_value_case
-  - editable: false
-    path: account_kind
+    path: account_tier
   - editable: false
     path: access_tier
   - editable: false
+    path: traffic_bypass
+  - editable: false
+    path: enable_static_website
+  - editable: false
+    path: blob_versioning_enabled
+  - editable: false
+    path: container_access_type
+  - editable: false
+    path: location
+  - editable: false
+    path: replication_type
+  - editable: false
+    path: service_endpoints
+  - editable: false
+    path: blob_delete_retention_days
+  - editable: true
+    path: name
+  - editable: true
+    path: resource_group_name
+  - editable: false
+    path: enable_large_file_share
+  - editable: false
+    path: index_path
+  - editable: false
+    path: enable_sftp
+  - editable: false
     path: min_tls_version
   - editable: false
-    path: last_access_time_enabled
+    path: custom_404_path
+  - editable: false
+    path: account_kind
+  - editable: false
+    path: enable_https_traffic_only
+  - editable: false
+    path: default_network_rule
+  - editable: true
+    path: container_name
+  - editable: false
+    path: blob_cors
+  - editable: false
+    path: infrastructure_encryption_enabled
+  - editable: false
+    path: nfsv3_enabled
   template:
-    revision: v1.6.0
-    source: https://github.com/getindata/terraform-azurerm-storage-account
+    revision: v1.0.0
+    source: https://github.com/appvia/terraform-azurerm-demo-storage-account
     variables:
-      containers_list:
-      - access_type: private
-        name: demo-storage-container
-      create_resource_group: true
-      location: West Europe
-      name: demo-storage-account
-      resource_group_name: demo-resource-group
+      container_name: demostorageaccountcontainer
+      default_network_rule: Allow
+      location: uksouth
+      replication_type: LRS
+      resource_group_name: wf-ws-app-aks-abfek-infra-uksouth
+      shared_access_key_enabled: true
+      tags:
+        name: demo-storage-account
 status:
   status: ""
