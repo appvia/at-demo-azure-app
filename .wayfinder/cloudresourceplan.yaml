@@ -6,10 +6,7 @@ metadata:
     appvia.io/lastUpdatedBy: amir.tayabali@appvia.io
     appvia.io/source: appvia-azurerm-demo-storage-account
   creationTimestamp: "2023-04-18T16:19:38Z"
-  generation: 6
   name: appvia-azurerm-demo-storage-account
-  resourceVersion: "38641342"
-  uid: 01c5b22e-f194-4fad-873c-f5e98bf21389
 spec:
   allocation:
     type: all
