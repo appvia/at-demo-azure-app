@@ -14,15 +14,15 @@ spec:
       env:
       - fromCloudResourceOutput:
           componentName: storage-account
-          output: name
+          output: PRIMARY_ACCESS_KEY
         name: AZURE_STORAGE_KEY
       - fromCloudResourceOutput:
           componentName: storage-account
-          output: storage_account_name
+          output: NAME
         name: AZURE_STORAGE_ACCOUNT_NAME
       - fromCloudResourceOutput:
           componentName: storage-account
-          output: container_name
+          output: CONTAINER_NAME
         name: AZURE_CONTAINER_NAME
       expose: true
       image: quay.io/appvia/demo-storage-account-app:latest
