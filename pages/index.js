@@ -8,6 +8,7 @@ export async function getServerSideProps() {
   const accountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
   const accountKey = process.env.AZURE_STORAGE_KEY;
   const containerName = process.env.AZURE_CONTAINER_NAME;
+
   if (!accountName) throw Error('Azure Storage accountName not found');
   if (!containerName) throw Error('Azure Storage containerName not found');
   if (!accountKey) throw Error('Azure Storage accountKey not found');
@@ -37,7 +38,7 @@ export async function getServerSideProps() {
     props: {
       initFiles: objects,
       envDetails: {
-        accountName: "atestt56789037" || "unset - run container with accountName",
+        accountName: process.env.AZURE_STORAGE_ACCOUNT_NAME || "unset - run container with accountName",
         accountKey: process.env.AZURE_STORAGE_KEY || "unset - run container with AZURE_STORAGE_KEY",
         containerName: process.env.AZURE_CONTAINER_NAME || "unset - run container with AZURE_CONTAINER_NAME"
       }
