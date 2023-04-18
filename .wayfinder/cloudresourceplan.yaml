@@ -2,10 +2,7 @@ apiVersion: cloudresources.appvia.io/v2beta1
 kind: CloudResourcePlan
 metadata:
   annotations:
-    appvia.io/lastUpdated: "2023-04-18T17:36:34Z"
-    appvia.io/lastUpdatedBy: amir.tayabali@appvia.io
     appvia.io/source: appvia-azurerm-demo-storage-account
-  creationTimestamp: "2023-04-18T16:19:38Z"
   name: appvia-azurerm-demo-storage-account
 spec:
   allocation:
@@ -301,5 +298,3 @@ spec:
       shared_access_key_enabled: true
       tags:
         name: demo-storage-account
-status:
-  status: ""
