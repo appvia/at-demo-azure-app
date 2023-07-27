@@ -2,8 +2,8 @@ apiVersion: cloudresources.appvia.io/v2beta1
 kind: CloudResourcePlan
 metadata:
   annotations:
-    appvia.io/source: appvia-azurerm-demo-storage-account
-  name: appvia-azurerm-demo-storage-account
+    appvia.io/source: azurerm-demo-storage-account
+  name: azurerm-demo-storage-account
 spec:
   allocation:
     type: all
@@ -287,7 +287,7 @@ spec:
   - editable: false
     path: nfsv3_enabled
   template:
-    revision: v1.0.0
+    revision: v1.0.5
     source: https://github.com/appvia/terraform-azurerm-demo-storage-account
     variables:
       container_name: demostorageaccountcontainer
