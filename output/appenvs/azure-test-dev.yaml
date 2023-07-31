@@ -1,0 +1,21 @@
+apiVersion: app.appvia.io/v2beta1
+kind: AppEnv
+metadata:
+  name: azure-test-dev
+  namespace: ws-amir
+spec:
+  application: azure-test
+  cloud: azure
+  clusterRef:
+    group: compute.appvia.io
+    kind: Cluster
+    name: aks-mkwoj
+    namespace: ws-amir
+    version: v2beta1
+  key: dev
+  name: dev
+  namespace: amir-azure-test-dev
+  order: 0
+  plan: aks-standard-multitenant
+  region: uksouth
+  stage: nonprod

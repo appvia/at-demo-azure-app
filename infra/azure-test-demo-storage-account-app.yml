@@ -1,0 +1,30 @@
+apiVersion: app.appvia.io/v2beta1
+kind: AppComponent
+metadata:
+  name: azure-test-demo-storage-account-app
+  namespace: ws-amir
+spec:
+  application: azure-test
+  container:
+    containers:
+    - env:
+      - fromSecret:
+          key: ""
+          name: ""
+        name: ""
+      image: ghcr.io/appvia/demo-storage-account-app
+      name: ui
+      ports:
+      - containerPort: 3002
+        name: ui
+        protocol: TCP
+      securityContext:
+        runAsGroup: 999
+        runAsUser: 999
+    expose:
+      container: ui
+      port: 3002
+    tls: true
+  key: demosto
+  name: demo-storage-account-app
+  type: Container
