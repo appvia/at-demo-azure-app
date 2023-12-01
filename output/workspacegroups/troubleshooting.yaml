@@ -1,7 +1,0 @@
-apiVersion: org.appvia.io/v2beta1
-kind: WorkspaceGroup
-metadata:
-  name: troubleshooting
-  namespace: ws-amir
-spec:
-  description: Access to logs and exec into running containers

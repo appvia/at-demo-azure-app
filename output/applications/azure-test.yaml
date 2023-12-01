@@ -1,9 +1,0 @@
-apiVersion: app.appvia.io/v2beta1
-kind: Application
-metadata:
-  name: azure-test
-  namespace: ws-amir
-spec:
-  cloud: azure
-  key: azuretest
-  name: azure-test

@@ -1,8 +1,0 @@
-apiVersion: org.appvia.io/v2beta1
-kind: WorkspaceGroup
-metadata:
-  name: editor
-  namespace: ws-amir
-spec:
-  description: Super-user access to namespaces in Non-Production. View only access
-    in Production

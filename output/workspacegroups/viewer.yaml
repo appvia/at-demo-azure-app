@@ -1,7 +1,0 @@
-apiVersion: org.appvia.io/v2beta1
-kind: WorkspaceGroup
-metadata:
-  name: viewer
-  namespace: ws-amir
-spec:
-  description: View only access to all clusters in workspace
