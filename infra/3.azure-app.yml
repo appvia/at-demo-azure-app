@@ -1,26 +1,25 @@
 apiVersion: app.appvia.io/v2beta1
 kind: AppComponent
 metadata:
-  name: azure-test-demo-storage-account-app
-  namespace: ws-amir
+  name: demo-storage-account-app
 spec:
-  application: azure-test
+  application: azure-demo
   container:
     containers:
     - env:
       - fromCloudResourceOutput:
-          componentName: storage-account
-          output: SECONDARY_ACCESS_KEY
-        name: PRIMARY_ACCESS_KEY
+          componentName: demo-storage-account
+          output: PRIMARY_ACCESS_KEY
+        name: AZURE_STORAGE_KEY
       - fromCloudResourceOutput:
-          componentName: storage-account
+          componentName: demo-storage-account
           output: NAME
         name: AZURE_STORAGE_ACCOUNT_NAME
       - fromCloudResourceOutput:
-          componentName: storage-account
+          componentName: demo-storage-account
           output: CONTAINER_NAME
         name: AZURE_CONTAINER_NAME
-      image: ghcr.io/appvia/demo-storage-account-app
+      image: ghcr.io/appvia/demo-storage-account-app:latest@sha-ade18e99336ccec4e5171eae052969da547c4df6
       name: ui
       ports:
       - containerPort: 3002
@@ -34,7 +33,6 @@ spec:
       port: 3002
     tls: true
   dependsOn:
-  - storage-account
-  key: demosto
+  -  storage-account
   name: demo-storage-account-app
   type: Container

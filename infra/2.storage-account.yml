@@ -1,0 +1,15 @@
+apiVersion: app.appvia.io/v2beta1
+kind: AppComponent
+metadata:
+  name: storage-account
+spec:
+  application: azure-demo
+  cloudResource:
+    plan: azurerm-demo-storage-account
+    variables:
+      container_name: demostorageaccountcontainer
+      name: somethingrandom678u1828937
+      resource_group_name: terranetes
+  key: storage
+  name: storage-account
+  type: CloudResource

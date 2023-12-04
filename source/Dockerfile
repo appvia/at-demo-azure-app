@@ -5,11 +5,14 @@ ENV NODE_ENV production
 # WORKDIR /app
 
 
-RUN useradd -ms /bin/bash newuser
-USER newuser
+# Create a group and user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Tell docker that all future commands should run as the appuser user
+USER appuser
 
 
-WORKDIR /home/newuser
+WORKDIR /home/appuser
 COPY source/package.json .
 COPY source/package-lock.json .
 
