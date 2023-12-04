@@ -2,10 +2,15 @@ FROM node:21.3-alpine3.18
 
 ENV NODE_ENV production
 
+# Create a group and user
+RUN addgroup app && adduser -S -G app app
 
-COPY source/package.json .
+# Tell docker that all future commands should run as the appuser user
+USER app
 
-COPY source/package-lock.json .
+WORKDIR /app
+
+COPY --chown=app:node source/package*.json .
 
 RUN npm install --legacy-peer-deps
 
@@ -17,13 +22,6 @@ RUN echo ${version} > ./VERSION
 
 RUN npm run build
 
-# Create a group and user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
-# Tell docker that all future commands should run as the appuser user
-USER appuser
-
-WORKDIR /home/appuser
 
 
 CMD [ "npm", "start" ]
