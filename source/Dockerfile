@@ -1,4 +1,4 @@
-FROM node:hydrogen-alpine3.18
+FROM node:21.3-alpine3.18
 
 ENV NODE_ENV production
 
