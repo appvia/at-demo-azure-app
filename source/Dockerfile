@@ -3,7 +3,9 @@ FROM node:21.3-alpine3.18
 ENV NODE_ENV production
 
 # Create a group and user
-RUN addgroup app && adduser -S -G app app
+RUN addgroup app --gid 1002 && adduser -S -G app app --uid 1002 
+
+
 
 # Tell docker that all future commands should run as the appuser user
 USER app
