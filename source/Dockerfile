@@ -5,7 +5,7 @@ ENV NODE_ENV production
 WORKDIR /app
 COPY source/package.json .
 COPY source/package-lock.json .
-RUN npm install
+RUN npm install --legacy-peer-deps
 COPY source/pages ./pages
 COPY source/public ./public
 RUN echo ${version} > ./VERSION

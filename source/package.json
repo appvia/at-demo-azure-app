@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "antd": "^3.26.17",
-    "next": "9.4.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "next": "13.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@azure/storage-blob": "^12.12.0"
   },
   "devDependencies": {
